@@ -2,7 +2,7 @@ version: 0.1
 
 env:
   variables:
-    ACTION: "create"
+    ACTION: create
 phases:
   pre_build:
     on-failure: ABORT
