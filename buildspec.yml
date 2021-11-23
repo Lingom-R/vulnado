@@ -14,7 +14,7 @@ phases:
         if [ ${ACTION} = "create" ]; then
           echo "Action ${ACTION} is not allowed!";
         else
-          exit 1;
+          echo "exit 1";
         fi
   build:
     commands:
