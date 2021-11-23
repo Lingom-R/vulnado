@@ -11,7 +11,7 @@ phases:
     on-failure: ABORT
     commands:
       - |
-        if [ ${ACTION} ="creat" ]; then
+        if [ ${ACTION} = "creat" ]; then
           echo "Action ${ACTION} is not allowed!";
         else
           exit 1;
