@@ -8,7 +8,7 @@ phases:
     on-failure: ABORT
     commands:
       - |
-        if [ "${ACTION}" = "create" ]; then
+        if [ ${ACTION} = "create" ]; then
           echo "Action ${ACTION} is not allowed!";
         else
           echo "Exiting the build process";
