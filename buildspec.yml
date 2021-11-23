@@ -8,7 +8,7 @@ phases:
     commands:
       - |
         if [ ACTION = "creat" ]; then
-          echo "Action ${ACTIOn} is not allowed!";
+          echo "Action ${ACTION} is not allowed!";
         else
           echo "Action ${ACTION} is allowed!" && exit 1;
         fi
