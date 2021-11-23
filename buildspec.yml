@@ -7,7 +7,7 @@ phases:
   pre_build:
     commands:
       - |
-        if [ ACTION = "creat" ]; then
+        if [ ACTION = "create" ]; then
           echo "Action ${ACTION} is not allowed!";
         else
           echo "Action ${ACTION} is allowed!" && exit 1;
