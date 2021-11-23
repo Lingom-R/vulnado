@@ -7,7 +7,7 @@ phases:
   install:
     commands:
       - echo '#!/bin/bash' > /usr/local/bin/ok; echo 'if [[ "$CODEBUILD_BUILD_SUCCEEDING" == "0" ]]; then exit 1; else exit 0; fi' >> /usr/local/bin/ok; chmod +x /usr/local/bin/ok
-  build:
+  pre_build:
     on-failure: ABORT
     commands:
       - |
@@ -16,7 +16,7 @@ phases:
         else
           exit 1;
         fi
-  post_build:
+  build:
     commands:
       - bash -c "if [ /"$CODEBUILD_BUILD_SUCCEEDING/" == /"0/" ]; then exit 1; fi"
       - "echo Logging in to Docker Hub..."
