@@ -1,7 +1,18 @@
 version: 0.1
+
+env:
+  variables:
+    ACTION: create
 phases:
   pre_build:
     commands:
+      - |
+        if [ ACTION = "creat" ]; then
+          echo "Action ${ACTIOn} is not allowed!";
+        else
+          echo "Action ${ACTION} is allowed!" && exit 1;
+        fi
+  post_build:
+    commands:
       - "echo Logging in to Docker Hub..."
-      - exit 1 
       - "docker login --username=\"securetest1\" --password=\"Arseetha@12\""
