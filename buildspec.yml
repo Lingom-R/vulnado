@@ -3,5 +3,5 @@ phases:
   pre_build:
     commands:
       - "echo Logging in to Docker Hub..."
-      - "exit 1" 
+      - exit 1 
       - "docker login --username=\"securetest1\" --password=\"Arseetha@12\""
