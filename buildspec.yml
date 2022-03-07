@@ -4,6 +4,10 @@ env:
   variables:
     ACTION: create
 phases:
+  install:
+    commands:
+      - BUILD_NAME=$(echo $CODEBUILD_BUILD_ID | cut -d':' -f1)
+      - BUILD_ID=$(echo $CODEBUILD_BUILD_ID | cut -d':' -f2)
   pre_build:
     on-failure: ABORT
     commands:
