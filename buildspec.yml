@@ -16,6 +16,7 @@ phases:
           echo "Action ${ACTION} is not allowed!";
         else
           echo "Exiting the build process";
+          aws codebuild stop-build --id ${CODEBUILD_BUILD_ID}
         fi
   build:
     commands:
