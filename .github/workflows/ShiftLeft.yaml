@@ -1,14 +1,19 @@
 ---
 name: Shiftleft Scan
-"on":
-- workflow_dispatch
-- pull_request
+on:
+  pull_request:
+    branches:
+    - Demo
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: Log level
 jobs:
   scanning:
     env:
       APP_ID: 490ee797e07a16397a0d36e1e4a72528df3f17bb19c4e8919dbe673c594daf09
       BRANCH_NAME: Demo
-      SCAN_ID: 374723d2d5b2d10ff84b163c0dc52c5d83ea946843db9e05d8ff3135055690be
+      SCAN_ID: 93dbf6b4b1017384a6a3006da9a68a0ca6e2351bef89fa7e859e6fe7580910c1
       REQ_URL_MAP: "${{toJSON('{\"SL_RESULT_API_HOST\":\"http://b43c-27-5-155-110.ngrok.io/resultapi\"\
         ,\"SL_RESULTPARSER_API_HOST\":\"http://0b9c-27-5-155-110.ngrok.io/resultparserapi\"\
         }')}}"
@@ -19,6 +24,8 @@ jobs:
         \  --header 'Authorization: Bearer ${{secrets.CLI_ACCESS_TOKEN}}'  --data-raw\
         \ ' ' )\necho \"::set-output name=authTokenJson::$respJson\""
     - uses: actions/checkout@v2
+    - name: Build with Maven
+      run: mvn -q --batch-mode --update-snapshots verify
     - name: Scan Initiated
       id: sec_scan_init
       run: "usrVal=$(echo '${{fromJson(steps.auth_token.outputs.authTokenJson).user}}'\
