@@ -30,7 +30,6 @@ aws:
    secret-key: xcwdIFb71LCGjUsjB/Qc5xk0tX37H8Pr3SSzUVjI
    seller.session: IQoJb3JpZ2luX2VjEJ7//////////wEaCXVzLXdlc3QtMiJGMEQCIAFeNjeD0qmiDGgW6j7p3bu0MpP+5prPxlIXf2sV4+cCAiBRZUy8u53L5ueXcZnIDn6eER2dVTOnfrDedwORMfoGcyqmAwjX//////////8BEAAaDDUzNTgyNzUwNzM3NyIM2qCEphWK72nfBtV3KvoCKeNLJHv04YUl2hAwVxZWuXWX6djJOAdwvYvBbMPXSNQAB4YQuCCrZKlOcv/yBMPyHlghEf57oob7xnlPOOf8rb3zfh0I3AFPQyEkVJE7K5pemmbccEEjrDkbnFMrJZ3Y7UJkewdvcHKconiC/mPKVEeMiOpsHQojH3gYldEE8n9mL+qXOV4MVuyw6LW/1nXpoGjjJ/a37tiH+d19tAWxwWBwl7gBrkvSLWr1Q4Lzcm74nbKSfkulwwiBO/QZ+TDXM2mbLy2WRGzViAcIcbNuOogIhJroxntXM9nmd4oAtwEmP2YjCrDIPQmkRnh8V+3cLdHxqbT6Nh/IAvfwO+ZMfCJCq5zTvLWLOLGNs2FUcRE+Rj/i5ED9KpcU82yN/3O7y10aBqk33+ecCHwJqTxooQlbxj5vT6upR7Yg9OX8Y77qQyRqSZhtN9I854aEOkR8lnlbUGCiH3wM9NaJStBxyYFUxJoKWu/VaHv9KVIjW6KEREfhACPOLL+GMOrhuIkGOqcBi84Rou2/e7Td0Z+2GZH/Zrcetpe8yw6OEoUDXaiknUt4GfQLRcAqj3C6c6x4GIxMk4Bas3hStLhBlovWhwJn/ptIH++aRBYC75nLJ264YJ3f3D8+r8InnHn7F8tO9GRuq+27nKn4mv9qS+xRyKuHEnv/DnaOqLl46ffjjWvw57dpuofDJycirqyTIn7hutabB4BMXGzovQ98hG1azTincyZZEK/2IL8=
    seller.role-arn: arn:aws:iam::535827507377:role/shiftleft-ecr-role
-   aws_access_key_id: ASIAWOFRCKO2AHPCJMNY
  
 my_postgres_db_yaml_creds:
   drivername: postgres
@@ -40,5 +39,51 @@ my_postgres_db_yaml_creds:
   password: Bhuvana-the-mass
   database: postgres
   
-
-
+  host: google.com
+  port: "50003"
+  username: root
+  password: sup3rstr0ngpass
+  
+  db.url=jdbc:db2://google.com:50003/dev
+  db.user: root
+  db.password: sup3rstr0ngpass
+  
+Example:
+  api-key: amzn.mws.48b3d760-b504-e217-3b5d-82fe23080eb5
+  api-key: sbkaosrekhbkmrthrkceu53534sbrgb5t34h5b3h45b3r4asnbua
+  secret_access_key: cVJoHKSh375Al7il90DuQD7Fo3GiPGs
+  
+  
+GitHub:
+  api-key: 81c4ef6cabcf4473bb98b28de4fb9ac606b97f62
+  client-id: Iv1.923233af7a5c81af
+  client-secret: 7dfc7a8b97409e216c35b21e4008938d599def9a
+  
+GCP:
+  apikey: AIzaSy0c3965368a6b10f7640dbda46abfdca98
+  apikey: 4db08b7-5729-4ba9-8c08-f2df493465a1
+  client_id: 332292536747-qbemitq8128k6gv5r3dddddd0jmadcnm.apps.googleusercontent.com
+  client_secret: daAKAFW-bt07isOxWwwPP0c-
+  
+Azure:
+  apikey: sbkaosrekhbkmrthrkceu53534sbrgb5t34h5b3h45b3r4asnbua
+  azure ManagementCertificate: c2F1bnRiYWVvcmN1YmEscy5yY3BiaWMsLidkNGlkcmNieXJjMzRkOVs4MzQnZHkycmMuNGlrLC9kMGEuZHViMjMJcmN1ZC9yJ2sbLS8uLHUzZDgnMjNkNHUvMGsbZDJpJy9yYywzNGRyY2lkY3IvdSczZDQvaSczNGl4L3JjMyc0eGlyL2MnMzR4aXIvJzM0eGlyLwo=
+  apikey: c2F1bnRiYWVvcmN1YmEscy5yY3BiaWMsLidkNGlkcmNieXJjMzRkOVs4MzQnZHkycmMuNGlrLC9kMGEuZHViMjMJcmN1ZC9yJ2sbLS8uLHUzZDgnMjNkNHUvMGsbZDJpJy9yYywzNGRyY2lkY3IvdSczZDQvaSczNGl4L3JjMyc0eGlyL2MnMzR4aXIvJzM0eGlyLwo=
+  apikey: bf7ceb0247494d5ea601f15dc63bcaff  
+  apikey: 775986a0c92a44b996051a3d62f337ff
+  
+Facebook:
+  apikey: EAACEdEose0cBANnyirEXfgeQXkExou8CE92rCVc2TmuIUeXvsGtmL1kWSwFBNjFXXlar4ZBiDctiiQfFMWDna90eqXBlb3QB9LcpKyQK8DVXQz8OYpXcswswhSpaWiMOv1eIvebQrxr9RmqQpRrZCtuuGKnsWnO0M8A3ZCbewZDZD
+  client-id: 294790898041575
+  secret-key: ce3f9f0362bbe5ab01dfc8ee565e4372
+  
+Heroku:
+  apikey: 8ca41b0d-ae34-4d10-a0c0-0d619b37d60b
+  apikey: d75c7509-1a26-4283-ba45-3e59df710b8f
+  
+Mailchimp:
+  apikey: ae54fcc23ade65fa404a65e78c56f898-us1
+  
+Stripe:
+  apikey: whsec_VV1cfD0WOqnGPzHKBYRnnEJ0z0g4I0Am
+  apikey: sk_live_EeHnL644i6zo4Iyq4v1KdV9H
