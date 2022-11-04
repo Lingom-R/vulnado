@@ -42,7 +42,7 @@ jobs:
         \ ${{ env.REQ_URL_MAP }} -tool_name github event:${{ github.event_name }}\
         \  pr_number:${{ github.event.number }}"
     - name: Upload SARIF file
-      uses: github/codeql-action/upload-sarif@v1
+      uses: github/codeql-action/upload-sarif@v2
       with:
         sarif_file: "${{github.workspace}}/results/result.sarif"
       if: hashFiles('**/result.sarif') !=''
