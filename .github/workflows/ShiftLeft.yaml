@@ -1,5 +1,5 @@
 ---
-name: Securin-ASPM
+name: Shiftleft Scan
 on:
   pull_request:
     branches:
@@ -11,19 +11,19 @@ on:
 jobs:
   scanning:
     env:
-      APP_ID: 8e715e29d387fdf94a4b777affb07180752befa4bb803d7838311d871b86139b
+      APP_ID: 6f64efeeaa3c222aaa43d86ce9dd9da8f2ad0c9553493cc86aa869c60fa39e27
       BRANCH_NAME: Demo
-      SCAN_ID: 4ad0ae3167ce3a28c6d0af1ad298748a2301a279011ac507d0c7bb3f1092f2a8
-      REQ_URL_MAP: "${{toJSON('{\"SL_RESULTPARSER_API_HOST\":\"https://slresultparserapi.dev.securin.io/resultparserapi/v1\"\
-        ,\"SL_RESULT_API_HOST\":\"https://slresultapi.dev.securin.io/resultapi/v1\"\
+      SCAN_ID: ff2d19e82eca531c746d7e25d5febd7af6e2b9b114d58d37ecdfae13db24a823
+      REQ_URL_MAP: "${{toJSON('{\"SL_RESULT_API_HOST\":\"https://slresultapi.qa.securin.io/resultapi\"\
+        ,\"SL_RESULTPARSER_API_HOST\":\"https://slresultparserapi.qa.securin.io/resultparserapi\"\
         }')}}"
     steps:
     - name: Retrieve Token Info
       id: auth_token
-      run: "respJson=$(curl --location --request GET 'https://slresultapi.dev.securin.io/resultapi/v1/aws/ecr/token'\
+      run: "respJson=$(curl --location --request GET 'https://slresultapi.qa.securin.io/resultapi/aws/ecr/token'\
         \  --header 'Authorization: Bearer ${{secrets.CLI_ACCESS_TOKEN}}'  --data-raw\
-        \ ' ' ) \necho \"authTokenJson=$respJson\" >> $GITHUB_OUTPUT"
-    - uses: actions/checkout@v3
+        \ ' ' )\necho \"::set-output name=authTokenJson::$respJson\""
+    - uses: actions/checkout@v2
     - name: Scan Initiated
       id: sec_scan_init
       run: "usrVal=$(echo '${{fromJson(steps.auth_token.outputs.authTokenJson).user}}'\
@@ -42,7 +42,7 @@ jobs:
         \ ${{ env.REQ_URL_MAP }} -tool_name github event:${{ github.event_name }}\
         \  pr_number:${{ github.event.number }}"
     - name: Upload SARIF file
-      uses: github/codeql-action/upload-sarif@v2
+      uses: github/codeql-action/upload-sarif@v1
       with:
         sarif_file: "${{github.workspace}}/results/result.sarif"
       if: hashFiles('**/result.sarif') !=''
