@@ -1,0 +1,25 @@
+version: 0.1
+
+env:
+  variables:
+    ACTION: create
+phases:
+  install:
+    commands:
+      - BUILD_NAME=$(echo $CODEBUILD_BUILD_ID | cut -d':' -f1)
+      - BUILD_ID=$(echo $CODEBUILD_BUILD_ID | cut -d':' -f2)
+  pre_build:
+    on-failure: ABORT
+    commands:
+      - |
+        if [ ${ACTION} = create ]; then
+          echo "Action ${ACTION} is not allowed!";
+        else
+          echo "Exiting the build process";
+          aws codebuild stop-build --id ${CODEBUILD_BUILD_ID}
+        fi
+  build:
+    commands:
+      - bash -c "if [ /"$CODEBUILD_BUILD_SUCCEEDING/" == /"0/" ]; then exit 1; fi"
+      - "echo Logging in to Docker Hub..."
+      - "docker login --username=\"securetest1\" --password=\"Arseetha@12\""

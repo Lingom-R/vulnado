@@ -1,0 +1,39 @@
+---
+name: Securin Scan
+"on":
+- workflow_dispatch
+- pull_request
+jobs:
+  scanning:
+    env:
+      APP_ID: a040441301daa0781830f3f1a020a98132503cfa5a8ae1095483485eb6f89daf
+    steps:
+    - name: Access token
+      id: access_token
+      run: |-
+        token=$( curl --request POST 'http://595a-103-70-41-30.ngrok.io/api/get_token'  --header 'Content-Type: application/json'  --data-raw  '{"userId": "${{ secrets.USER_NAME }}", "password": "${{ secrets.PASSWORD }}" }' | jq -r '.access_token' )
+        echo "::set-output name=token::$token"
+    - name: Retrieve Scan Info
+      id: auth_token
+      run: |-
+        respJson=$(curl --location --request GET 'http://9b90-103-70-41-30.ngrok.io/scan-info?app_id=${{ env.APP_ID }}'  --header 'Authorization: Bearer ${{steps.access_token.outputs.token}}'  --data-raw ' ' )
+        echo "::set-output name=authTokenJson::$respJson"
+    - uses: actions/checkout@v2
+    - name: Build with Maven
+      run: mvn --batch-mode --update-snapshots verify
+    - name: Scan Initiated
+      run: |-
+        docker login --username  ${{fromJson(steps.auth_token.outputs.authTokenJson).user}} --password ${{fromJson(steps.auth_token.outputs.authTokenJson).password}} ${{fromJson(steps.auth_token.outputs.authTokenJson).proxyUrl}}
+        docker pull -q ${{fromJson(steps.auth_token.outputs.authTokenJson).imageTag}}
+        docker run -v ${{github.workspace}}:/src  --volume ${{github.workspace}}:/workdir  ${{fromJson(steps.auth_token.outputs.authTokenJson).imageTag}} -user ${{ secrets.USER_NAME }} -pass ${{ secrets.PASSWORD }} -app_id ${{ env.APP_ID }} event:${{ github.event_name }}  pr_number:${{ github.event.number }}
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v1
+      with:
+        sarif_file: ${{github.workspace}}/results/result.sarif
+      if: hashFiles('**/result.sarif') !=''
+    - name: Evaluate build status
+      run: |
+        cat ${{github.workspace}}/results/status.txt
+        exit 1
+      if: hashFiles('**/status.txt') !=''
+    runs-on: ubuntu-latest

@@ -1,0 +1,44 @@
+logging:
+  level:
+    org.springframework.web: INFO
+    com.csw.shiftleft.api: INFO
+  file:
+    name: logs/shiftleft-token-api-local.log
+    clean-history-on-start: true
+    max-history: 1
+    max-size: 10MB
+  pattern: 
+    file: "%d %-5level [%thread] [${spring.application.name},%X{X-B3-TraceId},%X{X-B3-SpanId}] %logger{0}: %msg%n"
+    console: "%d %-5level [%thread] [${spring.application.name},%X{X-B3-TraceId},%X{X-B3-SpanId}] %logger{0}: %msg%n"
+    
+keycloak:
+  security:
+    server-url: ${KEYCLOAK_ISSUER_URI}/auth
+    realm-id: ${KEYCLOAK_REALM_ID}
+    client-id: ${KEYCLOAK_CLIENT_ID}
+    client-secret: ${KEYCLOAK_CLIENT_SECRET}
+
+keycloak:
+  security:
+    issuer-uri: https://auth.dev.securin.io/auth/realms/CSW-Dev/protocol/openid-connect/token
+    client-id: risk-quotient
+    key: xcwdIFb71LCGjUsjB/Qc5xk0tX37H8Pr3SSzUVjI
+
+aws:
+   s3-bucket-name: dev-securin-pipeline
+   access-key: ASIAXZQOO5CYVCQLIVKG
+   secret-key: xcwdIFb71LCGjUsjB/Qc5xk0tX37H8Pr3SSzUVjI
+   seller.session: IQoJb3JpZ2luX2VjEJ7//////////wEaCXVzLXdlc3QtMiJGMEQCIAFeNjeD0qmiDGgW6j7p3bu0MpP+5prPxlIXf2sV4+cCAiBRZUy8u53L5ueXcZnIDn6eER2dVTOnfrDedwORMfoGcyqmAwjX//////////8BEAAaDDUzNTgyNzUwNzM3NyIM2qCEphWK72nfBtV3KvoCKeNLJHv04YUl2hAwVxZWuXWX6djJOAdwvYvBbMPXSNQAB4YQuCCrZKlOcv/yBMPyHlghEf57oob7xnlPOOf8rb3zfh0I3AFPQyEkVJE7K5pemmbccEEjrDkbnFMrJZ3Y7UJkewdvcHKconiC/mPKVEeMiOpsHQojH3gYldEE8n9mL+qXOV4MVuyw6LW/1nXpoGjjJ/a37tiH+d19tAWxwWBwl7gBrkvSLWr1Q4Lzcm74nbKSfkulwwiBO/QZ+TDXM2mbLy2WRGzViAcIcbNuOogIhJroxntXM9nmd4oAtwEmP2YjCrDIPQmkRnh8V+3cLdHxqbT6Nh/IAvfwO+ZMfCJCq5zTvLWLOLGNs2FUcRE+Rj/i5ED9KpcU82yN/3O7y10aBqk33+ecCHwJqTxooQlbxj5vT6upR7Yg9OX8Y77qQyRqSZhtN9I854aEOkR8lnlbUGCiH3wM9NaJStBxyYFUxJoKWu/VaHv9KVIjW6KEREfhACPOLL+GMOrhuIkGOqcBi84Rou2/e7Td0Z+2GZH/Zrcetpe8yw6OEoUDXaiknUt4GfQLRcAqj3C6c6x4GIxMk4Bas3hStLhBlovWhwJn/ptIH++aRBYC75nLJ264YJ3f3D8+r8InnHn7F8tO9GRuq+27nKn4mv9qS+xRyKuHEnv/DnaOqLl46ffjjWvw57dpuofDJycirqyTIn7hutabB4BMXGzovQ98hG1azTincyZZEK/2IL8=
+   seller.role-arn: arn:aws:iam::535827507377:role/shiftleft-ecr-role
+   aws_access_key_id: ASIAWOFRCKO2AHPCJMNY
+ 
+my_postgres_db_yaml_creds:
+  drivername: postgres
+  host: 127.0.0.778
+  port: '7987'
+  username: administrator
+  password: Bhuvana-the-mass
+  database: postgres
+  
+
+
