@@ -1,5 +1,4 @@
 FROM openjdk:8
-FROM node:latest
 
 RUN apt-get update && \
     apt-get install build-essential maven default-jdk cowsay netcat -y && \
