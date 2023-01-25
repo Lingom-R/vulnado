@@ -13,14 +13,14 @@ jobs:
     env:
       APP_ID: 112de00be24c7885b6cc77361ea3147671b9d703a6bd303b54cdbf88c7dc8692
       BRANCH_NAME: iacbot-add-soluble-badges-30f10
-      SCAN_ID: 65a39afb1429e578b8fb0234ae80c63176ead18df0ff9698e34dfd1328ff82aa
-      REQ_URL_MAP: "${{toJSON('{\"SL_RESULT_API_HOST\":\"https://9b43-103-176-166-247.ngrok.io/resultapi\"\
-        ,\"SL_RESULTPARSER_API_HOST\":\"https://72c6-103-176-166-247.ngrok.io/resultparserapi\"\
+      SCAN_ID: 113b2ca737aa20cda11f20fc7140e929a26ebb6b51322fdec4be8e1af67c58c4
+      REQ_URL_MAP: "${{toJSON('{\"SL_RESULT_API_HOST\":\"https://82bc-157-51-11-126.ngrok.io/resultapi\"\
+        ,\"SL_RESULTPARSER_API_HOST\":\"https://f6f7-157-51-11-126.ngrok.io/resultparserapi\"\
         }')}}"
     steps:
     - name: Retrieve Token Info
       id: auth_token
-      run: "respJson=$(curl --location --request GET 'https://9b43-103-176-166-247.ngrok.io/resultapi/aws/ecr/token'\
+      run: "respJson=$(curl --location --request GET 'https://82bc-157-51-11-126.ngrok.io/resultapi/aws/ecr/token'\
         \  --header 'Authorization: Bearer ${{secrets.CLI_ACCESS_TOKEN}}'  --data-raw\
         \ ' ' ) \necho \"authTokenJson=$respJson\" >> $GITHUB_OUTPUT"
     - uses: actions/checkout@v3
