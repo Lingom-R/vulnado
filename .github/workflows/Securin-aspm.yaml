@@ -13,7 +13,7 @@ jobs:
     env:
       APP_ID: 5686e8c538edef720d1eea0aa56cb2073e6227ebcb419585e39cf5cff5468873
       BRANCH_NAME: ssrf-v2
-      SCAN_ID: 51d93e9105e6dc8f36f05e6ed554daaf0bcaabab4f540f15b7a868684865f5a7
+      SCAN_ID: 087d5c927617f05b6f5efac040f140334ef50491b76b7fdd680e84bb96e07cbe
       REQ_URL_MAP: "${{toJSON('{\"SL_RESULT_API_HOST\":\"https://78b9-223-178-87-216.ngrok.io/resultapi\"\
         ,\"SL_RESULTPARSER_API_HOST\":\"https://3671-223-178-87-216.ngrok.io/resultparserapi\"\
         }')}}"
