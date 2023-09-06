@@ -2,7 +2,8 @@
 name: Securin-ASPM
 on:
   pull_request:
-    branches: [ "Demo" ]
+    branches:
+    - Demo
   workflow_dispatch:
     inputs:
       logLevel:
