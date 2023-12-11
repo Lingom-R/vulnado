@@ -13,7 +13,7 @@ jobs:
     env:
       APP_ID: 13d5466197e6be9939276fab5e4c6be060f35e48cf4ae082c129607abb635ccb
       BRANCH_NAME: Demo
-      SCAN_ID: 78723072bce6e52b8ee78f3fed7c7d458bc836b7b05699b2e5655d5487b0a2d6
+      SCAN_ID: 79cff0453b2753777f8b72889d0423681220092e32907a9fddb2594327c22680
       REQ_URL_MAP: "${{toJSON('{\"SL_RESULT_API_HOST\":\"https://slresultapi.qa.securin.io/resultapi\"\
         ,\"SL_RESULTPARSER_API_HOST\":\"https://slresultparserapi.qa.securin.io/resultparserapi\"\
         }')}}"
