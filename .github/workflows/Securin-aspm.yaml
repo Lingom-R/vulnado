@@ -13,7 +13,7 @@ jobs:
     env:
       APP_ID: 13d5466197e6be9939276fab5e4c6be060f35e48cf4ae082c129607abb635ccb
       BRANCH_NAME: ssrf-v2
-      SCAN_ID: 0f5e580cb24c80183597dc277a2f5d02b4b58ad88da48358bf5a7444cad5e459
+      SCAN_ID: edf4cd01c1b8f43eb3450d771e0fe3cd36d28e109be615928708e62d6b2dd94d
       REQ_URL_MAP: "${{toJSON('{\"SL_RESULT_API_HOST\":\"https://slresultapi.qa.securin.io/resultapi\"\
         ,\"SL_RESULTPARSER_API_HOST\":\"https://slresultparserapi.qa.securin.io/resultparserapi\"\
         }')}}"
@@ -21,8 +21,8 @@ jobs:
     - name: Retrieve Token Info
       id: auth_token
       run: "respJson=$(curl --location --request GET 'https://slresultapi.qa.securin.io/resultapi/aws/ecr/token'\
-        \  --header 'Authorization: Bearer ${{secrets.CLI_ACCESS_TOKEN}}'  --data-raw\
-        \ ' ' ) \necho \"authTokenJson=$respJson\" >> $GITHUB_OUTPUT"
+        \  --header 'X-ASPM-Auth-Key: ${{secrets.ORG_API_KEY}}'  --data-raw ' ' )\
+        \ \necho \"authTokenJson=$respJson\" >> $GITHUB_OUTPUT"
     - uses: actions/checkout@v3
     - name: Scan Initiated
       id: sec_scan_init
@@ -37,10 +37,10 @@ jobs:
         \ ) \ndocker login --username  $usrVal --password $usrPassword $usrPrxyUrl\
         \ \ndocker pull -q $usrImgTag \ndocker run -v ${{github.workspace}}:/src \
         \ --volume ${{github.workspace}}:/workdir -v /var/run/docker.sock:/var/run/docker.sock\
-        \ $usrImgTag -access_tkn ${{secrets.CLI_ACCESS_TOKEN}} -app_id ${{ env.APP_ID\
-        \ }} -scan_id ${{ env.SCAN_ID }} -branch_name ${{ env.BRANCH_NAME }} -req_url_map\
-        \ ${{ env.REQ_URL_MAP }} -tool_name github event:${{ github.event_name }}\
-        \  pr_number:${{ github.event.number }} -upload_log true"
+        \ $usrImgTag -api_key ${{secrets.ORG_API_KEY}} -wrkspc_id ${{secrets.WORKSPACE_ID}}\
+        \ -app_id ${{ env.APP_ID }} -scan_id ${{ env.SCAN_ID }} -branch_name ${{ env.BRANCH_NAME\
+        \ }} -req_url_map ${{ env.REQ_URL_MAP }} -tool_name github event:${{ github.event_name\
+        \ }}  pr_number:${{ github.event.number }} -upload_log true"
     - name: Upload SARIF file
       uses: github/codeql-action/upload-sarif@v2
       with:
