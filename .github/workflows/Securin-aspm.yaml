@@ -11,9 +11,9 @@ on:
 jobs:
   scanning:
     env:
-      APP_ID: cc75a386112f808ca18982744208af72ede34c5c33fe4d1c2666a9c182cb4645
+      APP_ID: db8eb0d0c60e3b7f0573197d0e44f87c6433f630d6b6d2a18bed38ffe6d324f5
       BRANCH_NAME: Demo
-      SCAN_ID: 6564eb9da82a6debf1746c8be00e649f00210807fca514768caab487ef959b2f
+      SCAN_ID: 26fee77bf2627de707ec451c9ae05ec39115697f12e1d62729a35dabc665f4d6
       REQ_URL_MAP: "${{toJSON('{\"SL_RESULT_API_HOST\":\"https://slresultapi.securin.io/resultapi\"\
         ,\"SL_RESULTPARSER_API_HOST\":\"https://slresultparserapi.securin.io/resultparserapi\"\
         }')}}"
@@ -49,4 +49,6 @@ jobs:
     - name: Evaluate build status
       run: "cat ${{github.workspace}}/results/status.txt\nexit 1\n"
       if: hashFiles('**/status.txt') !=''
+    permissions:
+      security-events: write
     runs-on: ubuntu-latest
