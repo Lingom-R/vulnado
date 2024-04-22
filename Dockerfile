@@ -1,4 +1,3 @@
-FROM openjdk:8
 FROM debian:9.2
 
 RUN apt-get update && \
