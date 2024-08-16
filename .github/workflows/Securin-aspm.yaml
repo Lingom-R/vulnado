@@ -1,0 +1,54 @@
+---
+name: Securin-ASPM
+on:
+  pull_request:
+    branches:
+    - Demo
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: Log level
+jobs:
+  scanning:
+    env:
+      APP_ID: 6f6db2c86030b8b815494f22118661c6fdea50ea7a58c0eeb7cf5a5eb9b98d22
+      BRANCH_NAME: Demo
+      SCAN_ID: 1e2f1782ee09905c1529df9e117dd99d561c702eb2b34517e146f1cafa54432b
+      REQ_URL_MAP: "${{toJSON('{\"SL_RESULT_API_HOST\":\"https://slresultapi.uat.securin.io/resultapi\"\
+        ,\"SL_RESULTPARSER_API_HOST\":\"https://slresultparserapi.uat.securin.io/resultparserapi\"\
+        }')}}"
+    steps:
+    - name: Retrieve Token Info
+      id: auth_token
+      run: "respJson=$(curl --location --request GET 'https://slresultapi.uat.securin.io/resultapi/aws/ecr/token'\
+        \  --header 'X-ASPM-Auth-Key: ${{secrets.ORG_API_KEY}}'  --data-raw ' ' )\
+        \ \necho \"authTokenJson=$respJson\" >> $GITHUB_OUTPUT"
+    - uses: actions/checkout@v3
+    - name: Scan Initiated
+      id: sec_scan_init
+      run: "usrVal=$(echo '${{fromJson(steps.auth_token.outputs.authTokenJson).user}}'\
+        \ | openssl enc -aes-256-cbc -d -a -K ${{secrets.ENC_KEY}} -iv ${{secrets.ENC_IV}}\
+        \ ) \nusrPassword=$(echo '${{fromJson(steps.auth_token.outputs.authTokenJson).password}}'\
+        \ | openssl enc -aes-256-cbc -d -base64 -A -K ${{secrets.ENC_KEY}} -iv ${{secrets.ENC_IV}}\
+        \ ) \nusrPrxyUrl=$(echo '${{fromJson(steps.auth_token.outputs.authTokenJson).proxyUrl}}'\
+        \ | openssl enc -aes-256-cbc -d -a -K ${{secrets.ENC_KEY}} -iv ${{secrets.ENC_IV}}\
+        \ ) \nusrImgTag=$(echo '${{fromJson(steps.auth_token.outputs.authTokenJson).imageTag}}'\
+        \ | openssl enc -aes-256-cbc -d -a -K ${{secrets.ENC_KEY}} -iv ${{secrets.ENC_IV}}\
+        \ ) \ndocker login --username  $usrVal --password $usrPassword $usrPrxyUrl\
+        \ \ndocker pull -q $usrImgTag \ndocker run -v ${{github.workspace}}:/src \
+        \ --volume ${{github.workspace}}:/workdir -v /var/run/docker.sock:/var/run/docker.sock\
+        \ $usrImgTag -api_key ${{secrets.ORG_API_KEY}} -wrkspc_id ${{secrets.WORKSPACE_ID}}\
+        \ -app_id ${{ env.APP_ID }} -scan_id ${{ env.SCAN_ID }} -branch_name ${{ env.BRANCH_NAME\
+        \ }} -req_url_map ${{ env.REQ_URL_MAP }} -tool_name github event:${{ github.event_name\
+        \ }}  pr_number:${{ github.event.number }} -upload_log true"
+    - name: Upload SARIF file
+      uses: github/codeql-action/upload-sarif@v2
+      with:
+        sarif_file: "${{github.workspace}}/results/result.sarif"
+      if: hashFiles('**/result.sarif') !=''
+    - name: Evaluate build status
+      run: "cat ${{github.workspace}}/results/status.txt\nexit 1\n"
+      if: hashFiles('**/status.txt') !=''
+    permissions:
+      security-events: write
+    runs-on: ubuntu-latest
