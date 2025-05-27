@@ -49,7 +49,6 @@ my_postgres_db_yaml_creds:
   db.password: sup3rstr0ngpass
   
 Example:
-  api-key: amzn.mws.48b3d760-b504-e217-3b5d-82fe23080eb5
   api-key: sbkaosrekhbkmrthrkceu53534sbrgb5t34h5b3h45b3r4asnbua
   secret_access_key: cVJoHKSh375Al7il90DuQD7Fo3GiPGs
   
