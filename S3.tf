@@ -9,6 +9,8 @@ resource "aws_s3_bucket" "b1" {
 
   tags = {
     Name        = "PrivateBucket"
+    email       ="torres@gmail.com"
+    username    ="Torres"
   }
 }
 
