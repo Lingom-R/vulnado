@@ -11,6 +11,7 @@ resource "aws_s3_bucket" "b1" {
     Name        = "PrivateBucket"
     email       ="torres@gmail.com"
     username    ="Torres"
+    password    ="dslkjwelk0w2lkd"
   }
 }
 
